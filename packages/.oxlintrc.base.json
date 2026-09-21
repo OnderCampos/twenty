@@ -1,10 +1,5 @@
 {
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "extends": [
-    "../../.oxlintrc.base.json",
-    "../../../.oxlintrc.no-console-off.json"
-  ],
-  "plugins": ["react", "typescript", "import", "unicorn"],
+  "plugins": ["typescript", "import", "unicorn"],
   "categories": {
     "correctness": "off"
   },
@@ -45,16 +40,6 @@
         "args": "after-used",
         "argsIgnorePattern": "^_"
       }
-    ],
-    "react/no-unescaped-entities": "off",
-    "react/prop-types": "off",
-    "react/jsx-key": "off",
-    "react/display-name": "off",
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off",
-    "react/jsx-no-useless-fragment": "off",
-    "react/jsx-props-no-spreading": ["error", { "explicitSpread": "ignore" }],
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    ]
   }
 }

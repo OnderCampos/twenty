@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 import chalk from 'chalk';
-import { Command, CommanderError } from 'commander';
+import { Command } from 'commander';
 import {
   type AuthenticationMethod,
   CreateAppCommand,
 } from '@/create-app.command';
+import { handleCliError } from '../../twenty-sdk/src/cli/utils/handle-cli-error';
 import packageJson from '../package.json';
 
 const program = new Command(packageJson.name)
@@ -87,11 +88,5 @@ program.exitOverride();
 try {
   program.parse();
 } catch (error) {
-  if (error instanceof CommanderError) {
-    process.exit(error.exitCode);
-  }
-  if (error instanceof Error) {
-    console.error(chalk.red('Error:'), error.message);
-    process.exit(1);
-  }
+  handleCliError(error);
 }
