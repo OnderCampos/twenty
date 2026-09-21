@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import { registerCommands } from '@/cli/commands';
 import { ConfigService } from '@/cli/utilities/config/config-service';
+import { handleCliError } from '@/cli/utils/handle-cli-error';
 import chalk from 'chalk';
-import { Command, CommanderError } from 'commander';
+import { Command } from 'commander';
 import { inspect } from 'util';
 import packageJson from '../../package.json';
 
@@ -43,11 +44,5 @@ program.exitOverride();
 try {
   program.parse();
 } catch (error) {
-  if (error instanceof CommanderError) {
-    process.exit(error.exitCode);
-  }
-  if (error instanceof Error) {
-    console.error(chalk.red('Error:'), error.message);
-    process.exit(1);
-  }
+  handleCliError(error);
 }
