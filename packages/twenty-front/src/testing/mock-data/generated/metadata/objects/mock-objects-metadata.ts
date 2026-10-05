@@ -2,6 +2,189 @@
 // @ts-nocheck
 import { ObjectMetadataItemsQuery } from '~/generated-metadata/graphql';
 
+const messageChannelMessageAssociationsShared = {
+  "name": "messageChannelMessageAssociations",
+  "label": "Message Channel Association",
+  "description": "Messages from the channel.",
+  "icon": "IconMessage",
+  "isActive": true,
+  "isSystem": false,
+  "isUIEditable": false,
+  "isNullable": true,
+  "isUnique": false,
+  "isSearchable": false,
+  "createdAt": "2026-04-10T08:55:56.200Z",
+  "updatedAt": "2026-04-10T08:55:56.200Z",
+  "defaultValue": null,
+  "options": null,
+  "settings": {
+    "relationType": "ONE_TO_MANY"
+  },
+  "isLabelSyncedWithName": false,
+  "morphId": null,
+  "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
+  "relation": {
+    "__typename": "Relation",
+    "type": "ONE_TO_MANY",
+    "targetObjectMetadata": {
+      "__typename": "Object",
+      "id": "6a48ae9e-2964-48b4-90cd-abef2f7eac30",
+      "nameSingular": "messageChannelMessageAssociation",
+      "namePlural": "messageChannelMessageAssociations"
+    }
+  },
+  "morphRelations": null
+};
+
+const actorDefaults = {
+  "defaultValue": {
+    "name": "'System'",
+    "source": "'MANUAL'",
+    "workspaceMemberId": null
+  },
+  "options": null,
+  "settings": null,
+  "isLabelSyncedWithName": false,
+  "morphId": null,
+  "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
+  "relation": null,
+  "morphRelations": null
+};
+
+const actorFieldBase = {
+  ...actorDefaults,
+  "__typename": "Field",
+  "type": "ACTOR",
+  "isActive": true,
+  "isSystem": true,
+  "isUIEditable": false,
+  "isNullable": false,
+  "isUnique": false,
+  "isSearchable": false,
+  "createdAt": "2026-04-10T08:55:56.200Z",
+  "updatedAt": "2026-04-10T08:55:56.200Z"
+};
+
+const fullTextSearchFieldBase = {
+  "__typename": "Field",
+  "type": "TS_VECTOR",
+  "label": "Search vector",
+  "description": "Field used for full-text search",
+  "icon": "IconUser",
+  "isActive": true,
+  "isSystem": true,
+  "isUIEditable": true,
+  "isNullable": true,
+  "isUnique": false,
+  "isSearchable": false,
+  "createdAt": "2026-04-10T08:55:56.200Z",
+  "updatedAt": "2026-04-10T08:55:56.200Z",
+  "defaultValue": null,
+  "options": null,
+  "isLabelSyncedWithName": false,
+  "morphId": null,
+  "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
+  "relation": null,
+  "morphRelations": null
+};
+
+const messageChannelMessageAssociationFieldBase = {
+  ...messageChannelMessageAssociationsShared,
+  "__typename": "Field",
+  "type": "RELATION"
+};
+
+const messageParticipantRoleOptions = [
+  {
+    "id": "20202020-761b-4f02-bc28-795f9a67be48",
+    "color": "green",
+    "label": "From",
+    "value": "FROM",
+    "position": 0
+  },
+  {
+    "id": "20202020-86bc-4cf1-a887-c992c1a0f97f",
+    "color": "blue",
+    "label": "To",
+    "value": "TO",
+    "position": 1
+  },
+  {
+    "id": "20202020-fc2b-431f-805c-650ab60c4f88",
+    "color": "orange",
+    "label": "Cc",
+    "value": "CC",
+    "position": 2
+  },
+  {
+    "id": "20202020-fc9c-436e-842a-7e3a9b92766f",
+    "color": "red",
+    "label": "Bcc",
+    "value": "BCC",
+    "position": 3
+  }
+];
+
+const createdAtFieldBase = {
+  "__typename": "Field",
+  "type": "DATE_TIME",
+  "label": "Creation date",
+  "description": "Creation date",
+  "icon": "IconCalendar",
+  "isActive": true,
+  "isSystem": true,
+  "isUIEditable": false,
+  "isNullable": false,
+  "isUnique": false,
+  "isSearchable": false,
+  "createdAt": "2026-04-10T08:55:56.200Z",
+  "updatedAt": "2026-04-10T08:55:56.200Z",
+  "defaultValue": "now",
+  "options": null,
+  "settings": {
+    "displayFormat": "RELATIVE"
+  },
+  "isLabelSyncedWithName": false,
+  "morphId": null,
+  "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
+  "relation": null,
+  "morphRelations": null
+};
+
+const idFieldBase = {
+  "__typename": "Field",
+  "type": "UUID",
+  "label": "Id",
+  "description": "Id",
+  "icon": "Icon123",
+  "isActive": true,
+  "isSystem": true,
+  "isUIEditable": false,
+  "isNullable": false,
+  "isUnique": false,
+  "isSearchable": false,
+  "createdAt": "2026-04-10T08:55:56.200Z",
+  "updatedAt": "2026-04-10T08:55:56.200Z",
+  "defaultValue": "uuid",
+  "options": null,
+  "settings": null,
+  "isLabelSyncedWithName": false,
+  "morphId": null,
+  "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
+  "relation": null,
+  "morphRelations": null
+};
+
+const morphRelationToPetCareAgreementBase = {
+  "type": "MORPH_RELATION",
+  "label": "PetCareAgreement",
+  "settings": {
+    "onDelete": "SET_NULL",
+    "relationType": "MANY_TO_ONE",
+    "joinColumnName": "targetPetCareAgreementId"
+  }
+};
+
 // This file was automatically generated — do not edit manually.
 
 // prettier-ignore
@@ -204,58 +387,16 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "morphRelations": null
             },
             {
-              "__typename": "Field",
+              ...idFieldBase,
               "id": "a9897873-ea2c-407a-b1f0-a4b9f7ef6daa",
               "universalIdentifier": "20202020-c04a-4051-8a51-9cadbe0f1e2d",
-              "type": "UUID",
-              "name": "id",
-              "label": "Id",
-              "description": "Id",
-              "icon": "Icon123",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": false,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": "uuid",
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
+              "name": "id"
             },
             {
-              "__typename": "Field",
+              ...createdAtFieldBase,
               "id": "3624068b-68c9-471e-b356-094659552e64",
               "universalIdentifier": "20202020-c04b-4052-9b52-adbecf1f2e3e",
-              "type": "DATE_TIME",
-              "name": "createdAt",
-              "label": "Creation date",
-              "description": "Creation date",
-              "icon": "IconCalendar",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": false,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": "now",
-              "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
+              "name": "createdAt"
             },
             {
               "__typename": "Field",
@@ -314,64 +455,22 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "morphRelations": null
             },
             {
-              "__typename": "Field",
+              ...actorFieldBase,
               "id": "6ba9b957-7820-4e09-bf27-7cf801f75836",
               "universalIdentifier": "664a9500-2641-4caa-8d95-069807bb2eb4",
-              "type": "ACTOR",
               "name": "createdBy",
               "label": "Created by",
               "description": "The creator of the record",
-              "icon": "IconCreativeCommonsSa",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": false,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": {
-                "name": "'System'",
-                "source": "'MANUAL'",
-                "workspaceMemberId": null
-              },
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
+              "icon": "IconCreativeCommonsSa"
             },
             {
-              "__typename": "Field",
+              ...actorFieldBase,
               "id": "fa6798dc-609e-4a8c-a41b-6bff85b66e5c",
               "universalIdentifier": "1081c196-d675-4801-b9e1-7d8637b48eab",
-              "type": "ACTOR",
               "name": "updatedBy",
               "label": "Updated by",
               "description": "The workspace member who last updated the record",
-              "icon": "IconUserCircle",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": false,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": {
-                "name": "'System'",
-                "source": "'MANUAL'",
-                "workspaceMemberId": null
-              },
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
+              "icon": "IconUserCircle"
             },
             {
               "__typename": "Field",
@@ -400,33 +499,14 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "morphRelations": null
             },
             {
-              "__typename": "Field",
+              ...fullTextSearchFieldBase,
               "id": "a14ee0ea-710f-498d-ae17-5040c9ec59a9",
               "universalIdentifier": "b9e7825c-d491-4414-b904-910c00b5b93b",
-              "type": "TS_VECTOR",
               "name": "searchVector",
-              "label": "Search vector",
-              "description": "Field used for full-text search",
-              "icon": "IconUser",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": true,
-              "isNullable": true,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": null,
-              "options": null,
               "settings": {
                 "asExpression": "to_tsvector('simple', COALESCE(public.unaccent_immutable(\"title\"), ''))",
                 "generatedType": "STORED"
-              },
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
+              }
             },
             {
               "__typename": "Field",
@@ -722,30 +802,11 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
           "icon": "IconCalendar",
           "fieldsList": [
             {
-              "__typename": "Field",
+              ...idFieldBase,
               "id": "126456b1-0206-479b-a362-7cf99b727614",
               "universalIdentifier": "20202020-c01a-4021-8a21-9edf06bfef0a",
-              "type": "UUID",
               "name": "id",
-              "label": "Id",
-              "description": "Id",
-              "icon": "Icon123",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": false,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": true,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": "uuid",
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
+              "isSearchable": true
             },
             {
               "__typename": "Field",
@@ -832,6 +893,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "morphRelations": null
             },
             {
+              ...actorDefaults,
               "__typename": "Field",
               "id": "4a169ae2-6e2f-4c6b-b5be-a9783402c5ba",
               "universalIdentifier": "8daa2bc8-bce2-4309-8a48-b929f3ee2c34",
@@ -847,21 +909,10 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "isUnique": false,
               "isSearchable": false,
               "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": {
-                "name": "'System'",
-                "source": "'MANUAL'",
-                "workspaceMemberId": null
-              },
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
+              "updatedAt": "2026-04-10T08:55:56.200Z"
             },
             {
+              ...actorDefaults,
               "__typename": "Field",
               "id": "91674b47-8399-4134-abfe-f03f3b9b695a",
               "universalIdentifier": "55d810d2-fe47-44b4-b1de-b9c32113b695",
@@ -877,19 +928,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "isUnique": false,
               "isSearchable": false,
               "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": {
-                "name": "'System'",
-                "source": "'MANUAL'",
-                "workspaceMemberId": null
-              },
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
+              "updatedAt": "2026-04-10T08:55:56.200Z"
             },
             {
               "__typename": "Field",
@@ -1344,64 +1383,22 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "morphRelations": null
             },
             {
-              "__typename": "Field",
+              ...actorFieldBase,
               "id": "85f49d4b-a296-4db6-bd4e-b3e9e3642781",
               "universalIdentifier": "20202020-ff32-4fa1-b7ad-407cc6aa0734",
-              "type": "ACTOR",
               "name": "createdBy",
               "label": "Created by",
               "description": "The creator of the record",
-              "icon": "IconCreativeCommonsSa",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": false,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": {
-                "name": "'System'",
-                "source": "'MANUAL'",
-                "workspaceMemberId": null
-              },
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
+              "icon": "IconCreativeCommonsSa"
             },
             {
-              "__typename": "Field",
+              ...actorFieldBase,
               "id": "4f91bd2e-aba4-4934-9e7d-970a78ea6fbe",
               "universalIdentifier": "53ee42e7-f157-42b5-b278-a5fa9b378307",
-              "type": "ACTOR",
               "name": "updatedBy",
               "label": "Updated by",
               "description": "The workspace member who last updated the record",
-              "icon": "IconUserCircle",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": false,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": {
-                "name": "'System'",
-                "source": "'MANUAL'",
-                "workspaceMemberId": null
-              },
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
+              "icon": "IconUserCircle"
             },
             {
               "__typename": "Field",
@@ -1870,64 +1867,22 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "morphRelations": null
             },
             {
-              "__typename": "Field",
+              ...actorFieldBase,
               "id": "3cbbe6de-5427-442c-be81-e8d2d9aa7aaa",
               "universalIdentifier": "20202020-a63e-4a62-8e63-42a51828f831",
-              "type": "ACTOR",
               "name": "createdBy",
               "label": "Created by",
               "description": "The creator of the record",
-              "icon": "IconCreativeCommonsSa",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": false,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": {
-                "name": "'System'",
-                "source": "'MANUAL'",
-                "workspaceMemberId": null
-              },
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
+              "icon": "IconCreativeCommonsSa"
             },
             {
-              "__typename": "Field",
+              ...actorFieldBase,
               "id": "95b4f0c1-561d-408e-b4d5-c416a88ae6c7",
               "universalIdentifier": "3c8a6095-3f64-4e81-a59e-66c2bd181e11",
-              "type": "ACTOR",
               "name": "updatedBy",
               "label": "Updated by",
               "description": "The workspace member who last updated the record",
-              "icon": "IconUserCircle",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": false,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": {
-                "name": "'System'",
-                "source": "'MANUAL'",
-                "workspaceMemberId": null
-              },
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
+              "icon": "IconUserCircle"
             },
             {
               "__typename": "Field",
@@ -2652,33 +2607,14 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "morphRelations": null
             },
             {
-              "__typename": "Field",
+              ...fullTextSearchFieldBase,
               "id": "48e91f8a-9f5f-44f9-a70f-367c8f1a41ef",
               "universalIdentifier": "c63e091f-6528-4657-ad2a-b0a158f9e483",
-              "type": "TS_VECTOR",
               "name": "searchVector",
-              "label": "Search vector",
-              "description": "Field used for full-text search",
-              "icon": "IconUser",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": true,
-              "isNullable": true,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": null,
-              "options": null,
               "settings": {
                 "asExpression": "to_tsvector('simple', COALESCE(public.unaccent_immutable(\"subject\"), ''))",
                 "generatedType": "STORED"
-              },
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
+              }
             },
             {
               "__typename": "Field",
@@ -2760,44 +2696,16 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "morphRelations": null
             },
             {
-              "__typename": "Field",
+              ...messageChannelMessageAssociationFieldBase,
               "id": "8a4d3a4b-91b7-46a1-bd0f-e3e8b40017a7",
               "universalIdentifier": "20202020-314e-40a4-906d-a5d5d6c285f6",
-              "type": "RELATION",
-              "name": "messageChannelMessageAssociations",
-              "label": "Message Channel Association",
-              "description": "Messages from the channel.",
-              "icon": "IconMessage",
-              "isActive": true,
-              "isSystem": false,
-              "isUIEditable": false,
-              "isNullable": true,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": null,
-              "options": null,
-              "settings": {
-                "relationType": "ONE_TO_MANY"
-              },
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
               "relation": {
-                "__typename": "Relation",
-                "type": "ONE_TO_MANY",
+                ...messageChannelMessageAssociationsShared.relation,
                 "sourceObjectMetadata": {
                   "__typename": "Object",
                   "id": "cd9f8eee-25e6-497b-9dcc-29c5071d8493",
                   "nameSingular": "messageThread",
                   "namePlural": "messageThreads"
-                },
-                "targetObjectMetadata": {
-                  "__typename": "Object",
-                  "id": "6a48ae9e-2964-48b4-90cd-abef2f7eac30",
-                  "nameSingular": "messageChannelMessageAssociation",
-                  "namePlural": "messageChannelMessageAssociations"
                 },
                 "sourceFieldMetadata": {
                   "__typename": "Field",
@@ -2809,8 +2717,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
                   "id": "03b828f6-ecd3-44b8-a2b3-9849120195ed",
                   "name": "messageThread"
                 }
-              },
-              "morphRelations": null
+              }
             }
           ]
         }
@@ -5688,9 +5595,8 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "__typename": "Field",
               "id": "0199b767-c816-43e5-ba5a-4bb7d4c25d23",
               "universalIdentifier": "65e3339b-eb62-414c-8d5c-4d823b63abff",
-              "type": "MORPH_RELATION",
+              ...morphRelationToPetCareAgreementBase,
               "name": "target",
-              "label": "PetCareAgreement",
               "description": "NoteTargets Pet Care Agreement",
               "icon": "IconCheckbox",
               "isActive": true,
@@ -6284,36 +6190,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "createdAt": "2026-04-10T08:55:56.200Z",
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "'FROM'",
-              "options": [
-                {
-                  "id": "20202020-761b-4f02-bc28-795f9a67be48",
-                  "color": "green",
-                  "label": "From",
-                  "value": "FROM",
-                  "position": 0
-                },
-                {
-                  "id": "20202020-86bc-4cf1-a887-c992c1a0f97f",
-                  "color": "blue",
-                  "label": "To",
-                  "value": "TO",
-                  "position": 1
-                },
-                {
-                  "id": "20202020-fc2b-431f-805c-650ab60c4f88",
-                  "color": "orange",
-                  "label": "Cc",
-                  "value": "CC",
-                  "position": 2
-                },
-                {
-                  "id": "20202020-fc9c-436e-842a-7e3a9b92766f",
-                  "color": "red",
-                  "label": "Bcc",
-                  "value": "BCC",
-                  "position": 3
-                }
-              ],
+              "options": messageParticipantRoleOptions,
               "settings": null,
               "isLabelSyncedWithName": false,
               "morphId": null,
@@ -7027,9 +6904,8 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "__typename": "Field",
               "id": "107f1410-5f59-489b-92b7-25ab6d3c7e48",
               "universalIdentifier": "c8305059-0a36-4719-af7c-f86655595e7e",
-              "type": "MORPH_RELATION",
+              ...morphRelationToPetCareAgreementBase,
               "name": "target",
-              "label": "PetCareAgreement",
               "description": "Attachments Pet Care Agreement",
               "icon": "IconFileImport",
               "isActive": true,
@@ -19176,44 +19052,16 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "morphRelations": null
             },
             {
-              "__typename": "Field",
+              ...messageChannelMessageAssociationFieldBase,
               "id": "00712157-bcd3-4412-ae41-f197c0165ee9",
               "universalIdentifier": "20202020-3cef-43a3-82c6-50e7cfbc9ae4",
-              "type": "RELATION",
-              "name": "messageChannelMessageAssociations",
-              "label": "Message Channel Association",
-              "description": "Messages from the channel.",
-              "icon": "IconMessage",
-              "isActive": true,
-              "isSystem": false,
-              "isUIEditable": false,
-              "isNullable": true,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": null,
-              "options": null,
-              "settings": {
-                "relationType": "ONE_TO_MANY"
-              },
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
               "relation": {
-                "__typename": "Relation",
-                "type": "ONE_TO_MANY",
+                ...messageChannelMessageAssociationsShared.relation,
                 "sourceObjectMetadata": {
                   "__typename": "Object",
                   "id": "1365b607-7ba1-4a6a-9c32-3f284b77de7f",
                   "nameSingular": "message",
                   "namePlural": "messages"
-                },
-                "targetObjectMetadata": {
-                  "__typename": "Object",
-                  "id": "6a48ae9e-2964-48b4-90cd-abef2f7eac30",
-                  "nameSingular": "messageChannelMessageAssociation",
-                  "namePlural": "messageChannelMessageAssociations"
                 },
                 "sourceFieldMetadata": {
                   "__typename": "Field",
@@ -19225,8 +19073,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
                   "id": "593de04f-d9f8-466e-8682-24a2121692f2",
                   "name": "message"
                 }
-              },
-              "morphRelations": null
+              }
             }
           ],
           "searchFieldMetadataList": [],
