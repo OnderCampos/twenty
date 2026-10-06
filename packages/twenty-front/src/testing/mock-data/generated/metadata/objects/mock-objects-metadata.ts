@@ -2,6 +2,354 @@
 // @ts-nocheck
 import { ObjectMetadataItemsQuery } from '~/generated-metadata/graphql';
 
+const relativeDateTimeFieldSettings = {
+  displayFormat: 'RELATIVE',
+};
+
+const createDateTimeFieldBase = ({
+  id,
+  universalIdentifier,
+  name,
+  label,
+  description,
+  icon,
+  isSystem,
+  isNullable,
+  defaultValue,
+  settings,
+  isSearchable = false,
+}: {
+  id: string;
+  universalIdentifier: string;
+  name: string;
+  label: string;
+  description: string;
+  icon: string;
+  isSystem: boolean;
+  isNullable: boolean;
+  defaultValue: string | null;
+  settings: { displayFormat: string } | null;
+  isSearchable?: boolean;
+}) => ({
+  __typename: 'Field',
+  id,
+  universalIdentifier,
+  type: 'DATE_TIME',
+  name,
+  label,
+  description,
+  icon,
+  isActive: true,
+  isSystem,
+  isUIEditable: false,
+  isNullable,
+  isUnique: false,
+  isSearchable,
+  createdAt: '2026-04-10T08:55:56.200Z',
+  updatedAt: '2026-04-10T08:55:56.200Z',
+  defaultValue,
+  options: null,
+  settings,
+  isLabelSyncedWithName: false,
+  morphId: null,
+  applicationId: 'dd6a5463-023d-4a10-855f-a4abaf32c1ec',
+  relation: null,
+  morphRelations: null,
+});
+
+const createRelationFieldBase = ({
+  id,
+  universalIdentifier,
+  name,
+  label,
+  description,
+  icon,
+  isNullable,
+  targetFieldMetadata,
+  sourceObjectMetadata,
+  targetObjectMetadata,
+}: {
+  id: string;
+  universalIdentifier: string;
+  name: string;
+  label: string;
+  description: string;
+  icon: string;
+  isNullable: boolean;
+  sourceObjectMetadata: {
+    id: string;
+    nameSingular: string;
+    namePlural: string;
+  };
+  targetObjectMetadata: {
+    id: string;
+    nameSingular: string;
+    namePlural: string;
+  };
+  targetFieldMetadata: {
+    id: string;
+    name: string;
+  };
+}) => ({
+  __typename: 'Field',
+  id,
+  universalIdentifier,
+  type: 'RELATION',
+  name,
+  label,
+  description,
+  icon,
+  isActive: true,
+  isSystem: false,
+  isUIEditable: false,
+  isNullable,
+  isUnique: false,
+  isSearchable: false,
+  createdAt: '2026-04-10T08:55:56.200Z',
+  updatedAt: '2026-04-10T08:55:56.200Z',
+  defaultValue: null,
+  options: null,
+  settings: {
+    relationType: 'ONE_TO_MANY',
+  },
+  isLabelSyncedWithName: false,
+  morphId: null,
+  applicationId: 'dd6a5463-023d-4a10-855f-a4abaf32c1ec',
+  relation: {
+    __typename: 'Relation',
+    type: 'ONE_TO_MANY',
+    sourceObjectMetadata: {
+      __typename: 'Object',
+      ...sourceObjectMetadata,
+    },
+    targetObjectMetadata: {
+      __typename: 'Object',
+      ...targetObjectMetadata,
+    },
+    sourceFieldMetadata: {
+      __typename: 'Field',
+      id,
+      name,
+    },
+    targetFieldMetadata: {
+      __typename: 'Field',
+      ...targetFieldMetadata,
+    },
+  },
+  morphRelations: null,
+});
+
+const messageChannelMessageAssociationTargetObjectMetadata = {
+  id: '6a48ae9e-2964-48b4-90cd-abef2f7eac30',
+  nameSingular: 'messageChannelMessageAssociation',
+  namePlural: 'messageChannelMessageAssociations',
+};
+
+const createMessageChannelMessageAssociationsField = ({
+  id,
+  universalIdentifier,
+  sourceObjectMetadata,
+  targetFieldMetadata,
+}: {
+  id: string;
+  universalIdentifier: string;
+  sourceObjectMetadata: {
+    id: string;
+    nameSingular: string;
+    namePlural: string;
+  };
+  targetFieldMetadata: {
+    id: string;
+    name: string;
+  };
+}) =>
+  createRelationFieldBase({
+    id,
+    universalIdentifier,
+    name: 'messageChannelMessageAssociations',
+    label: 'Message Channel Association',
+    description: 'Messages from the channel.',
+    icon: 'IconMessage',
+    isNullable: true,
+    sourceObjectMetadata,
+    targetObjectMetadata: messageChannelMessageAssociationTargetObjectMetadata,
+    targetFieldMetadata,
+  });
+
+const createObjectMetadataBase = ({
+  id,
+  universalIdentifier,
+  nameSingular,
+  namePlural,
+  labelIdentifierFieldMetadataId,
+  labelSingular,
+  labelPlural,
+  description,
+  icon,
+}: {
+  id: string;
+  universalIdentifier: string;
+  nameSingular: string;
+  namePlural: string;
+  labelIdentifierFieldMetadataId: string;
+  labelSingular: string;
+  labelPlural: string;
+  description: string;
+  icon: string;
+}) => ({
+  __typename: 'Object',
+  id,
+  universalIdentifier,
+  nameSingular,
+  namePlural,
+  isRemote: false,
+  isActive: true,
+  isSystem: true,
+  isUIEditable: true,
+  isUICreatable: true,
+  writability: 'OPEN',
+  createdAt: '2026-04-10T08:55:56.200Z',
+  updatedAt: '2026-04-10T08:55:56.200Z',
+  labelIdentifierFieldMetadataId,
+  imageIdentifierFieldMetadataId: null,
+  applicationId: 'dd6a5463-023d-4a10-855f-a4abaf32c1ec',
+  shortcut: null,
+  isLabelSyncedWithName: false,
+  isSearchable: false,
+  duplicateCriteria: null,
+  labelSingular,
+  labelPlural,
+  description,
+  icon,
+});
+
+const createSystemPositionField = ({
+  id,
+  universalIdentifier,
+  description,
+}: {
+  id: string;
+  universalIdentifier: string;
+  description: string;
+}) => ({
+  __typename: 'Field',
+  id,
+  universalIdentifier,
+  type: 'POSITION',
+  name: 'position',
+  label: 'Position',
+  description,
+  icon: 'IconHierarchy2',
+  isActive: true,
+  isSystem: true,
+  isUIEditable: true,
+  isNullable: false,
+  isUnique: false,
+  isSearchable: false,
+  createdAt: '2026-04-10T08:55:56.200Z',
+  updatedAt: '2026-04-10T08:55:56.200Z',
+  defaultValue: 0,
+  options: null,
+  settings: null,
+  isLabelSyncedWithName: false,
+  morphId: null,
+  applicationId: 'dd6a5463-023d-4a10-855f-a4abaf32c1ec',
+  relation: null,
+  morphRelations: null,
+});
+
+const createDefaultFieldBase = ({
+  id,
+  universalIdentifier,
+  type,
+  name,
+  label,
+  description,
+  icon,
+  isNullable,
+  defaultValue,
+  options,
+}: {
+  id: string;
+  universalIdentifier: string;
+  type: string;
+  name: string;
+  label: string;
+  description: string;
+  icon: string;
+  isNullable: boolean;
+  defaultValue: boolean | null;
+  options: Array<{
+    id: string;
+    color: string;
+    label: string;
+    value: string;
+    position: number;
+  }> | null;
+}) => ({
+  __typename: 'Field',
+  id,
+  universalIdentifier,
+  type,
+  name,
+  label,
+  description,
+  icon,
+  isActive: true,
+  isSystem: false,
+  isUIEditable: false,
+  isNullable,
+  isUnique: false,
+  isSearchable: false,
+  createdAt: '2026-04-10T08:55:56.200Z',
+  updatedAt: '2026-04-10T08:55:56.200Z',
+  defaultValue,
+  options,
+  settings: null,
+  isLabelSyncedWithName: false,
+  morphId: null,
+  applicationId: 'dd6a5463-023d-4a10-855f-a4abaf32c1ec',
+  relation: null,
+  morphRelations: null,
+});
+
+const messageChannelMessageAssociationTargetObjectMetadata = {
+  id: '6a48ae9e-2964-48b4-90cd-abef2f7eac30',
+  nameSingular: 'messageChannelMessageAssociation',
+  namePlural: 'messageChannelMessageAssociations',
+};
+
+const createMessageChannelMessageAssociationsField = ({
+  id,
+  universalIdentifier,
+  sourceObjectMetadata,
+  targetFieldMetadata,
+}: {
+  id: string;
+  universalIdentifier: string;
+  sourceObjectMetadata: {
+    id: string;
+    nameSingular: string;
+    namePlural: string;
+  };
+  targetFieldMetadata: {
+    id: string;
+    name: string;
+  };
+}) =>
+  createRelationFieldBase({
+    id,
+    universalIdentifier,
+    name: 'messageChannelMessageAssociations',
+    label: 'Message Channel Association',
+    description: 'Messages from the channel.',
+    icon: 'IconMessage',
+    isNullable: true,
+    sourceObjectMetadata,
+    targetObjectMetadata: messageChannelMessageAssociationTargetObjectMetadata,
+    targetFieldMetadata,
+  });
+
 // This file was automatically generated — do not edit manually.
 
 // prettier-ignore
@@ -20,30 +368,17 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
       {
         "__typename": "ObjectEdge",
         "node": {
-          "__typename": "Object",
-          "id": "f7d73428-92b5-46e1-9b2f-6c079f743ab2",
-          "universalIdentifier": "20202020-8f1d-4eef-9f85-0d1965e27221",
-          "nameSingular": "calendarEvent",
-          "namePlural": "calendarEvents",
-          "isRemote": false,
-          "isActive": true,
-          "isSystem": true,
-          "isUIEditable": true,
-          "isUICreatable": true,
-          "writability": "OPEN",
-          "createdAt": "2026-04-10T08:55:56.200Z",
-          "updatedAt": "2026-04-10T08:55:56.200Z",
-          "labelIdentifierFieldMetadataId": "63d7dfdd-ccca-410b-9686-f2ad8428496a",
-          "imageIdentifierFieldMetadataId": null,
-          "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-          "shortcut": null,
-          "isLabelSyncedWithName": false,
-          "isSearchable": false,
-          "duplicateCriteria": null,
-          "labelSingular": "Calendar event",
-          "labelPlural": "Calendar events",
-          "description": "Calendar events",
-          "icon": "IconCalendar",
+          ...createObjectMetadataBase({
+            id: "f7d73428-92b5-46e1-9b2f-6c079f743ab2",
+            universalIdentifier: "20202020-8f1d-4eef-9f85-0d1965e27221",
+            nameSingular: "calendarEvent",
+            namePlural: "calendarEvents",
+            labelIdentifierFieldMetadataId: "63d7dfdd-ccca-410b-9686-f2ad8428496a",
+            labelSingular: "Calendar event",
+            labelPlural: "Calendar events",
+            description: "Calendar events",
+            icon: "IconCalendar",
+          }),
           "searchFieldMetadataList": [],
           "indexMetadataList": [],
           "fieldsList": [
@@ -73,32 +408,18 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "relation": null,
               "morphRelations": null
             },
-            {
-              "__typename": "Field",
-              "id": "37f9a5cf-3cac-42fc-9c53-e9767adf842a",
-              "universalIdentifier": "20202020-551c-402c-bb6d-dfe9efe86bcb",
-              "type": "BOOLEAN",
-              "name": "isFullDay",
-              "label": "Is Full Day",
-              "description": "Is Full Day",
-              "icon": "IconHours24",
-              "isActive": true,
-              "isSystem": false,
-              "isUIEditable": false,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": false,
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
-            },
+            createDefaultFieldBase({
+              id: "37f9a5cf-3cac-42fc-9c53-e9767adf842a",
+              universalIdentifier: "20202020-551c-402c-bb6d-dfe9efe86bcb",
+              type: "BOOLEAN",
+              name: "isFullDay",
+              label: "Is Full Day",
+              description: "Is Full Day",
+              icon: "IconHours24",
+              isNullable: false,
+              defaultValue: false,
+              options: null,
+            }),
             {
               "__typename": "Field",
               "id": "501e9e6f-e1c3-49fa-80c5-50ce232121fa",
@@ -125,32 +446,18 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "relation": null,
               "morphRelations": null
             },
-            {
-              "__typename": "Field",
-              "id": "84aba543-5fc8-4e82-9f4a-7b79c87fe0bc",
-              "universalIdentifier": "20202020-2554-4ee1-a617-17907f6bab21",
-              "type": "DATE_TIME",
-              "name": "endsAt",
-              "label": "End Date",
-              "description": "End Date",
-              "icon": "IconCalendarClock",
-              "isActive": true,
-              "isSystem": false,
-              "isUIEditable": false,
-              "isNullable": true,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": null,
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
-            },
+            createDateTimeFieldBase({
+              id: "84aba543-5fc8-4e82-9f4a-7b79c87fe0bc",
+              universalIdentifier: "20202020-2554-4ee1-a617-17907f6bab21",
+              name: "endsAt",
+              label: "End Date",
+              description: "End Date",
+              icon: "IconCalendarClock",
+              isSystem: false,
+              isNullable: true,
+              defaultValue: null,
+              settings: null,
+            }),
             {
               "__typename": "Field",
               "id": "6100d486-b03e-4915-9412-883b2f5df2e7",
@@ -248,9 +555,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -276,9 +581,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -304,9 +607,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -373,32 +674,11 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "relation": null,
               "morphRelations": null
             },
-            {
-              "__typename": "Field",
-              "id": "959642c7-70bc-4dd3-8417-374d1a614096",
-              "universalIdentifier": "e9488e9a-0abe-4500-8c1d-bfbd6b8cffad",
-              "type": "POSITION",
-              "name": "position",
-              "label": "Position",
-              "description": "Calendar event record position",
-              "icon": "IconHierarchy2",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": true,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": 0,
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
-            },
+            createSystemPositionField({
+              id: "959642c7-70bc-4dd3-8417-374d1a614096",
+              universalIdentifier: "e9488e9a-0abe-4500-8c1d-bfbd6b8cffad",
+              description: "Calendar event record position",
+            }),
             {
               "__typename": "Field",
               "id": "a14ee0ea-710f-498d-ae17-5040c9ec59a9",
@@ -766,9 +1046,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -794,9 +1072,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -822,9 +1098,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -1200,9 +1474,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -1228,9 +1500,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -1256,9 +1526,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -1291,32 +1559,11 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "relation": null,
               "morphRelations": null
             },
-            {
-              "__typename": "Field",
-              "id": "dd1f53e8-7a3d-4fcb-b87d-455e8e91ed82",
-              "universalIdentifier": "20202020-38af-409b-95f0-7f08aa5f420f",
-              "type": "POSITION",
-              "name": "position",
-              "label": "Position",
-              "description": "Dashboard record Position",
-              "icon": "IconHierarchy2",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": true,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": 0,
-              "options": null,
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
-            },
+            createSystemPositionField({
+              id: "dd1f53e8-7a3d-4fcb-b87d-455e8e91ed82",
+              universalIdentifier: "20202020-38af-409b-95f0-7f08aa5f420f",
+              description: "Dashboard record Position",
+            }),
             {
               "__typename": "Field",
               "id": "3ca06e86-2ef4-451b-a4df-4232a9c7cc4e",
@@ -1638,9 +1885,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -1666,9 +1911,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -1694,9 +1937,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -2500,9 +2741,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -2528,9 +2767,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -2556,9 +2793,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -2759,59 +2994,19 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               },
               "morphRelations": null
             },
-            {
-              "__typename": "Field",
-              "id": "8a4d3a4b-91b7-46a1-bd0f-e3e8b40017a7",
-              "universalIdentifier": "20202020-314e-40a4-906d-a5d5d6c285f6",
-              "type": "RELATION",
-              "name": "messageChannelMessageAssociations",
-              "label": "Message Channel Association",
-              "description": "Messages from the channel.",
-              "icon": "IconMessage",
-              "isActive": true,
-              "isSystem": false,
-              "isUIEditable": false,
-              "isNullable": true,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": null,
-              "options": null,
-              "settings": {
-                "relationType": "ONE_TO_MANY"
+            createMessageChannelMessageAssociationsField({
+              id: "8a4d3a4b-91b7-46a1-bd0f-e3e8b40017a7",
+              universalIdentifier: "20202020-314e-40a4-906d-a5d5d6c285f6",
+              sourceObjectMetadata: {
+                id: "cd9f8eee-25e6-497b-9dcc-29c5071d8493",
+                nameSingular: "messageThread",
+                namePlural: "messageThreads",
               },
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": {
-                "__typename": "Relation",
-                "type": "ONE_TO_MANY",
-                "sourceObjectMetadata": {
-                  "__typename": "Object",
-                  "id": "cd9f8eee-25e6-497b-9dcc-29c5071d8493",
-                  "nameSingular": "messageThread",
-                  "namePlural": "messageThreads"
-                },
-                "targetObjectMetadata": {
-                  "__typename": "Object",
-                  "id": "6a48ae9e-2964-48b4-90cd-abef2f7eac30",
-                  "nameSingular": "messageChannelMessageAssociation",
-                  "namePlural": "messageChannelMessageAssociations"
-                },
-                "sourceFieldMetadata": {
-                  "__typename": "Field",
-                  "id": "8a4d3a4b-91b7-46a1-bd0f-e3e8b40017a7",
-                  "name": "messageChannelMessageAssociations"
-                },
-                "targetFieldMetadata": {
-                  "__typename": "Field",
-                  "id": "03b828f6-ecd3-44b8-a2b3-9849120195ed",
-                  "name": "messageThread"
-                }
+              targetFieldMetadata: {
+                id: "03b828f6-ecd3-44b8-a2b3-9849120195ed",
+                name: "messageThread",
               },
-              "morphRelations": null
-            }
+            })
           ]
         }
       },
@@ -2888,43 +3083,25 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
               "relation": null,
               "morphRelations": null
             },
-            {
-              "__typename": "Field",
-              "id": "294209a8-a714-4440-b6a5-69a15bdf0600",
-              "universalIdentifier": "20202020-a01c-4083-8c83-bbccddeeffaa",
-              "type": "DATE_TIME",
-              "name": "updatedAt",
-              "label": "Last update",
-              "description": "Last time the record was changed",
-              "icon": "IconCalendarClock",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": false,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": "now",
-              "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
-            },
+            createDateTimeFieldBase({
+              id: "294209a8-a714-4440-b6a5-69a15bdf0600",
+              universalIdentifier: "20202020-a01c-4083-8c83-bbccddeeffaa",
+              name: "updatedAt",
+              label: "Last update",
+              description: "Last time the record was changed",
+              icon: "IconCalendarClock",
+              isSystem: true,
+              isNullable: false,
+              defaultValue: "now",
+              settings: relativeDateTimeFieldSettings,
+            }),
             {
               "__typename": "Field",
               "id": "5ac5562f-b100-44dd-9039-04582a3d6f49",
@@ -2944,9 +3121,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -3963,9 +4138,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -3991,9 +4164,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -4019,9 +4190,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -4080,54 +4249,40 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "relation": null,
               "morphRelations": null
             },
-            {
-              "__typename": "Field",
-              "id": "79041349-60ca-4734-b67f-90c0399ebd95",
-              "universalIdentifier": "20202020-357c-4432-8c50-8c31b4a552d9",
-              "type": "MULTI_SELECT",
-              "name": "statuses",
-              "label": "Statuses",
-              "description": "The current statuses of the workflow versions",
-              "icon": "IconStatusChange",
-              "isActive": true,
-              "isSystem": false,
-              "isUIEditable": false,
-              "isNullable": true,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": null,
-              "options": [
+            createDefaultFieldBase({
+              id: "79041349-60ca-4734-b67f-90c0399ebd95",
+              universalIdentifier: "20202020-357c-4432-8c50-8c31b4a552d9",
+              type: "MULTI_SELECT",
+              name: "statuses",
+              label: "Statuses",
+              description: "The current statuses of the workflow versions",
+              icon: "IconStatusChange",
+              isNullable: true,
+              defaultValue: null,
+              options: [
                 {
-                  "id": "20202020-e9d8-41df-8262-31bb04948366",
-                  "color": "yellow",
-                  "label": "Draft",
-                  "value": "DRAFT",
-                  "position": 0
+                  id: "20202020-e9d8-41df-8262-31bb04948366",
+                  color: "yellow",
+                  label: "Draft",
+                  value: "DRAFT",
+                  position: 0,
                 },
                 {
-                  "id": "20202020-e47e-4d57-913a-7b29e1f140ef",
-                  "color": "green",
-                  "label": "Active",
-                  "value": "ACTIVE",
-                  "position": 1
+                  id: "20202020-e47e-4d57-913a-7b29e1f140ef",
+                  color: "green",
+                  label: "Active",
+                  value: "ACTIVE",
+                  position: 1,
                 },
                 {
-                  "id": "20202020-bdfa-4d35-bf5c-e410cccfc765",
-                  "color": "gray",
-                  "label": "Deactivated",
-                  "value": "DEACTIVATED",
-                  "position": 2
-                }
+                  id: "20202020-bdfa-4d35-bf5c-e410cccfc765",
+                  color: "gray",
+                  label: "Deactivated",
+                  value: "DEACTIVATED",
+                  position: 2,
+                },
               ],
-              "settings": null,
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
-            },
+            }),
             {
               "__typename": "Field",
               "id": "1ed983b2-0797-47cd-82e3-672cc07828f4",
@@ -5430,62 +5585,30 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "relation": null,
               "morphRelations": null
             },
-            {
-              "__typename": "Field",
-              "id": "e6758a59-240a-436b-a138-147027613a5f",
-              "universalIdentifier": "20202020-c02b-4122-9b22-ddeef1234567",
-              "type": "DATE_TIME",
-              "name": "createdAt",
-              "label": "Creation date",
-              "description": "Creation date",
-              "icon": "IconCalendar",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": false,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": "now",
-              "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
-            },
-            {
-              "__typename": "Field",
-              "id": "3a1ee5d9-d710-49ee-aaf4-423efa72f66f",
-              "universalIdentifier": "20202020-c02c-4123-8c23-eef12345678a",
-              "type": "DATE_TIME",
-              "name": "updatedAt",
-              "label": "Last update",
-              "description": "Last time the record was changed",
-              "icon": "IconCalendarClock",
-              "isActive": true,
-              "isSystem": true,
-              "isUIEditable": false,
-              "isNullable": false,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": "now",
-              "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": null,
-              "morphRelations": null
-            },
+            createDateTimeFieldBase({
+              id: "e6758a59-240a-436b-a138-147027613a5f",
+              universalIdentifier: "20202020-c02b-4122-9b22-ddeef1234567",
+              name: "createdAt",
+              label: "Creation date",
+              description: "Creation date",
+              icon: "IconCalendar",
+              isSystem: true,
+              isNullable: false,
+              defaultValue: "now",
+              settings: relativeDateTimeFieldSettings,
+            }),
+            createDateTimeFieldBase({
+              id: "3a1ee5d9-d710-49ee-aaf4-423efa72f66f",
+              universalIdentifier: "20202020-c02c-4123-8c23-eef12345678a",
+              name: "updatedAt",
+              label: "Last update",
+              description: "Last time the record was changed",
+              icon: "IconCalendarClock",
+              isSystem: true,
+              isNullable: false,
+              defaultValue: "now",
+              settings: relativeDateTimeFieldSettings,
+            }),
             {
               "__typename": "Field",
               "id": "6141caba-60a5-46a3-bf3c-5aa1eda8a8d0",
@@ -5505,9 +5628,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -6016,30 +6137,17 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
       {
         "__typename": "ObjectEdge",
         "node": {
-          "__typename": "Object",
-          "id": "7db07e5a-4476-4a4f-ba75-6de6597689aa",
-          "universalIdentifier": "20202020-a433-4456-aa2d-fd9cb26b774a",
-          "nameSingular": "messageParticipant",
-          "namePlural": "messageParticipants",
-          "isRemote": false,
-          "isActive": true,
-          "isSystem": true,
-          "isUIEditable": true,
-          "isUICreatable": true,
-          "writability": "OPEN",
-          "createdAt": "2026-04-10T08:55:56.200Z",
-          "updatedAt": "2026-04-10T08:55:56.200Z",
-          "labelIdentifierFieldMetadataId": "ef9a5003-2e21-459e-804a-5b27afa9cb6a",
-          "imageIdentifierFieldMetadataId": null,
-          "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-          "shortcut": null,
-          "isLabelSyncedWithName": false,
-          "isSearchable": false,
-          "duplicateCriteria": null,
-          "labelSingular": "Message Participant",
-          "labelPlural": "Message Participants",
-          "description": "Message Participants",
-          "icon": "IconUserCircle",
+          ...createObjectMetadataBase({
+            id: "7db07e5a-4476-4a4f-ba75-6de6597689aa",
+            universalIdentifier: "20202020-a433-4456-aa2d-fd9cb26b774a",
+            nameSingular: "messageParticipant",
+            namePlural: "messageParticipants",
+            labelIdentifierFieldMetadataId: "ef9a5003-2e21-459e-804a-5b27afa9cb6a",
+            labelSingular: "Message Participant",
+            labelPlural: "Message Participants",
+            description: "Message Participants",
+            icon: "IconUserCircle",
+          }),
           "fieldsList": [
             {
               "__typename": "Field",
@@ -6086,9 +6194,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -6114,9 +6220,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -6142,9 +6246,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -6680,9 +6782,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -6708,9 +6808,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -6736,9 +6834,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -7592,9 +7688,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -7620,9 +7714,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -7648,9 +7740,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -7994,9 +8084,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -8022,9 +8110,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -8050,9 +8136,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -8614,9 +8698,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -8642,9 +8724,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -8670,9 +8750,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -9865,9 +9943,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -9893,9 +9969,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -9921,9 +9995,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -10556,9 +10628,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -10584,9 +10654,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -10612,9 +10680,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -13646,9 +13712,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -13674,9 +13738,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -13702,9 +13764,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -14002,9 +14062,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -14030,9 +14088,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -14058,9 +14114,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -14644,9 +14698,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -14672,9 +14724,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -14700,9 +14750,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -15250,9 +15298,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -15278,9 +15324,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -15306,9 +15350,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -16508,9 +16550,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -16536,9 +16576,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -16564,9 +16602,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -17152,9 +17188,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -17180,9 +17214,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -17208,9 +17240,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -18291,9 +18321,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -18319,9 +18347,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -18347,9 +18373,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -18809,9 +18833,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -18837,9 +18859,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -18865,9 +18885,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -19175,59 +19193,19 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               },
               "morphRelations": null
             },
-            {
-              "__typename": "Field",
-              "id": "00712157-bcd3-4412-ae41-f197c0165ee9",
-              "universalIdentifier": "20202020-3cef-43a3-82c6-50e7cfbc9ae4",
-              "type": "RELATION",
-              "name": "messageChannelMessageAssociations",
-              "label": "Message Channel Association",
-              "description": "Messages from the channel.",
-              "icon": "IconMessage",
-              "isActive": true,
-              "isSystem": false,
-              "isUIEditable": false,
-              "isNullable": true,
-              "isUnique": false,
-              "isSearchable": false,
-              "createdAt": "2026-04-10T08:55:56.200Z",
-              "updatedAt": "2026-04-10T08:55:56.200Z",
-              "defaultValue": null,
-              "options": null,
-              "settings": {
-                "relationType": "ONE_TO_MANY"
+            createMessageChannelMessageAssociationsField({
+              id: "00712157-bcd3-4412-ae41-f197c0165ee9",
+              universalIdentifier: "20202020-3cef-43a3-82c6-50e7cfbc9ae4",
+              sourceObjectMetadata: {
+                id: "1365b607-7ba1-4a6a-9c32-3f284b77de7f",
+                nameSingular: "message",
+                namePlural: "messages",
               },
-              "isLabelSyncedWithName": false,
-              "morphId": null,
-              "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
-              "relation": {
-                "__typename": "Relation",
-                "type": "ONE_TO_MANY",
-                "sourceObjectMetadata": {
-                  "__typename": "Object",
-                  "id": "1365b607-7ba1-4a6a-9c32-3f284b77de7f",
-                  "nameSingular": "message",
-                  "namePlural": "messages"
-                },
-                "targetObjectMetadata": {
-                  "__typename": "Object",
-                  "id": "6a48ae9e-2964-48b4-90cd-abef2f7eac30",
-                  "nameSingular": "messageChannelMessageAssociation",
-                  "namePlural": "messageChannelMessageAssociations"
-                },
-                "sourceFieldMetadata": {
-                  "__typename": "Field",
-                  "id": "00712157-bcd3-4412-ae41-f197c0165ee9",
-                  "name": "messageChannelMessageAssociations"
-                },
-                "targetFieldMetadata": {
-                  "__typename": "Field",
-                  "id": "593de04f-d9f8-466e-8682-24a2121692f2",
-                  "name": "message"
-                }
+              targetFieldMetadata: {
+                id: "593de04f-d9f8-466e-8682-24a2121692f2",
+                name: "message",
               },
-              "morphRelations": null
-            }
+            })
           ],
           "searchFieldMetadataList": [],
           "indexMetadataList": [
@@ -19328,9 +19306,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -19356,9 +19332,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": "now",
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
@@ -19384,9 +19358,7 @@ export const mockedStandardObjectMetadataQueryResult: ObjectMetadataItemsQuery =
               "updatedAt": "2026-04-10T08:55:56.200Z",
               "defaultValue": null,
               "options": null,
-              "settings": {
-                "displayFormat": "RELATIVE"
-              },
+              "settings": relativeDateTimeFieldSettings,
               "isLabelSyncedWithName": false,
               "morphId": null,
               "applicationId": "dd6a5463-023d-4a10-855f-a4abaf32c1ec",
