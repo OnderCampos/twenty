@@ -207,19 +207,15 @@ const computeSchemaComponent = ({
   const withRequiredFields = !forResponse && !forUpdate;
 
   const tempItem = {
-    ...item,
-    fields: flatFieldMetadatas,
-  } as unknown as ObjectMetadataEntity;
+  if (withRequiredFields) {
+    const requiredFields = getRequiredFields(flatFieldMetadatas);
 
-  const result: OpenAPIV3_1.SchemaObject = {
-    type: 'object',
-    description: item.description ?? undefined,
-    properties: convertObjectMetadataToSchemaProperties({
-      item: tempItem,
-      forResponse,
-    }) as Properties,
-    ...(!forResponse
-      ? { example: getSchemaComponentsExample(item, flatFieldMetadatas) }
+    if (requiredFields.length) {
+      result.required = requiredFields;
+    }
+  }
+
+  return result;
       : {}),
   };
 

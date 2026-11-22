@@ -36,8 +36,7 @@ import { DEFAULT_ICONS_BY_FIELD_TYPE } from '~/pages/settings/data-model/constan
 
 type SettingsDataModelNewFieldFormValues = z.infer<
   ReturnType<typeof settingsFieldFormSchema>
-> &
-  any;
+>;
 
 const DEFAULT_ICON_FOR_NEW_FIELD = 'IconUsers';
 

@@ -226,7 +226,7 @@ describe('ApolloFactory', () => {
   }, 10000);
 
   it('should call onNetworkError when the request itself fails', async () => {
-    fetchMock.mockReject(() => Promise.reject({ message: 'Unknown error' }));
+    fetchMock.mockReject(() => Promise.reject(new Error('Unknown error')));
 
     try {
       await makeRequest();

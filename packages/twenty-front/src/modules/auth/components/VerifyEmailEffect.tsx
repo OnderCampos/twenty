@@ -117,7 +117,7 @@ export const VerifyEmailEffect = ({ onError }: VerifyEmailEffectProps) => {
       return;
     }
 
-    verifyEmailToken();
+    void verifyEmailToken();
 
     // Verify email only needs to run once at mount
     // oxlint-disable-next-line react-hooks/exhaustive-deps
