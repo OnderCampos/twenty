@@ -29,7 +29,7 @@ export default defineConfig({
   projects: [
     {
       name: 'setup',
-      testMatch: /.*\.setup\.ts/,
+      testMatch: /\.setup\.ts$/,
     },
     // Chromium only: the fake media device flags that make getUserMedia and
     // MediaRecorder deterministic in CI are Chromium-specific.

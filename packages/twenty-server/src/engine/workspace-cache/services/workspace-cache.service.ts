@@ -208,7 +208,9 @@ export class WorkspaceCacheService implements OnModuleInit, OnModuleDestroy {
     this.assertValidCacheParameters(workspaceId, cacheKeyNames);
 
     const memoKey =
-      `${workspaceId}-${[...cacheKeyNames].sort().join(',')}` as const;
+      `${workspaceId}-${[...cacheKeyNames]
+        .sort((keyNameA, keyNameB) => keyNameA.localeCompare(keyNameB))
+        .join(',')}` as const;
 
     const result = await this.memoizer.memoizePromiseAndExecute(
       memoKey,

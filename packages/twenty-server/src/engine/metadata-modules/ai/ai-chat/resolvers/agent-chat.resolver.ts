@@ -407,7 +407,7 @@ export class AgentChatResolver {
     const thread = await this.threadRepository.findOne(workspaceId, {
       where: { id: threadId, userWorkspaceId },
     });
-
+      return false;
     if (!isDefined(thread) || !isDefined(thread.activeStreamId)) {
       return true;
     }
