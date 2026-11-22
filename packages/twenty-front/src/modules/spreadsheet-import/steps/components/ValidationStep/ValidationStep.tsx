@@ -268,7 +268,7 @@ export const ValidationStep = ({
       return false;
     });
     if (!invalidData) {
-      submitData();
+      void submitData();
     } else {
       enqueueDialog({
         title: t`Finish flow with errors`,

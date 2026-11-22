@@ -175,15 +175,9 @@ const getSchemaComponentsRelationProperties = (
 const getRequiredFields = (
   flatFieldMetadatas: FlatFieldMetadata[],
 ): string[] => {
-  return flatFieldMetadatas.reduce((required, field) => {
-    if (!field.isNullable && field.defaultValue === null) {
-      required.push(field.name);
-
-      return required;
-    }
-
-    return required;
-  }, [] as string[]);
+  return flatFieldMetadatas
+    .filter((field) => !field.isNullable && field.defaultValue === null)
+    .map((field) => field.name);
 };
 
 const computeSchemaComponent = ({
