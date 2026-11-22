@@ -409,7 +409,7 @@ export class AgentChatResolver {
     });
 
     if (!isDefined(thread) || !isDefined(thread.activeStreamId)) {
-      return true;
+      return false;
     }
 
     const redis = this.redisClientService.getClient();
